@@ -1,0 +1,11 @@
+<button class="button-17" (click)="addWeek()">Lägg till vecka</button>
+<section>
+  <div>
+    <label for="year-input">År</label><input type="number" id="year-input" [(ngModel)]="year" (input)="onInputChange()"/>
+  </div>
+  <div>
+    <label for="week-number">Vecka</label
+    ><input type="number" id="week-number" [(ngModel)]="week" (input)="onInputChange()"/>
+  </div>
+</section>
+<span>{{weekInterval}}</span>

@@ -1,0 +1,35 @@
+:host {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    margin: 2rem auto;
+}
+
+button {
+    margin-right: 2rem;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+}
+
+div {
+    display: flex;
+    align-items: center;
+}
+
+label {
+    text-align: end;
+    width: 50px;
+    margin-right: 5px;
+}
+
+input {
+    margin-left: 1rem;
+    width: 50px;
+}
+
+span {
+    margin-left: 2rem;
+}
