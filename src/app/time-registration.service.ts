@@ -24,4 +24,12 @@ export class TimeRegistrationService {
     const updatedData = [...currentData, myWeek];
     this.weeks.next(updatedData);
   }
+
+  updateWeek(updatedWeek: Week) {
+    const currentData = this.weeks.value;
+    const updatedData = currentData.map(week =>
+      week.weekNo === updatedWeek.weekNo && week.year === updatedWeek.year ? updatedWeek : week
+    );
+    this.weeks.next(updatedData);
+  }
 }

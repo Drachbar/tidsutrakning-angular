@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Week } from '../model/week';
 import { Day } from '../model/day';
 
@@ -9,8 +9,9 @@ import { Day } from '../model/day';
 })
 export class WeekComponent {
   @Input({ required: true }) week!: Week;
+  @Output() weekUpdated = new EventEmitter<Week>();
 
-  test(updatedDay: Day) {
-    console.log(updatedDay);
+  updateWeek() {
+    this.weekUpdated.emit(this.week);
   }
 }

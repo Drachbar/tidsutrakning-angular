@@ -1,5 +1,5 @@
 <p>{{day.date.toLocaleDateString()}}</p>
-<input type="time" (input)="tidIn()">
-<input type="time" >
-<input type="time" >
-<input type="time">
+<input type="time" [(ngModel)]="day.dayStart" (ngModelChange)="updateDay()">
+<input type="time" [(ngModel)]="day.lunchStart" (ngModelChange)="updateDay()">
+<input type="time" [(ngModel)]="day.lunchEnd" (ngModelChange)="updateDay()">
+<input type="time" [(ngModel)]="day.dayEnd" (ngModelChange)="updateDay()">

@@ -18,4 +18,8 @@ export class WeeksComponent implements OnInit {
   ngOnInit(): void {
     this.weeks$ = this.timeRegistrationService.data$;
   }
+
+  updateWeek(week: Week) {
+    this.timeRegistrationService.updateWeek(week);
+  }
 }
