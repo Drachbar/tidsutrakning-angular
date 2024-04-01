@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Day } from '../model/day';
 
 @Component({
   selector: 'app-day',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./day.component.scss']
 })
 export class DayComponent {
-
+  @Input({ required: true }) day!: Day;
+  @Output() dayUpdated = new EventEmitter<Day>();
+  
+  tidIn() {
+    this.dayUpdated.emit(this.day)
+  }
 }

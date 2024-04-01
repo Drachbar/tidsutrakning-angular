@@ -10,12 +10,12 @@ import { Week } from '../model/week';
 })
 export class WeeksComponent implements OnInit {
 
-  private data$!: Observable<Week[]>;
+  weeks$!: Observable<Week[]>;
 
   constructor(private timeRegistrationService: TimeRegistrationService) {
   }
 
   ngOnInit(): void {
-    this.data$ = this.timeRegistrationService.data$;
+    this.weeks$ = this.timeRegistrationService.data$;
   }
 }

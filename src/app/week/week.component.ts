@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Week } from '../model/week';
+import { Day } from '../model/day';
 
 @Component({
   selector: 'app-week',
@@ -6,7 +8,9 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./week.component.scss']
 })
 export class WeekComponent {
-  @Input({ required: true }) weekNo!: number;
-  @Input({ required: true }) year!: number;
+  @Input({ required: true }) week!: Week;
 
+  test(updatedDay: Day) {
+    console.log(updatedDay);
+  }
 }

@@ -1,1 +1,1 @@
-<p>week works!</p>
+<app-day *ngFor="let day of week.days" [day]="day" (dayUpdated)="test($event)"></app-day>
