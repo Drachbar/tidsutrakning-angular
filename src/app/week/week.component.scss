@@ -1,0 +1,20 @@
+article {
+    margin: 1rem;
+    padding: 1rem;
+    border: 3px solid rgb(18, 27, 27);
+    border-radius: 1rem;
+}
+
+h2 {
+    text-align: center;
+}
+
+header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+section {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}

@@ -36,4 +36,9 @@ export class WeekService {
 
     return weekDays;
   }
+
+  getWeekDay(num: number): string {
+    const days = ['Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag', 'Söndag'];
+    return days[num];
+  }
 }

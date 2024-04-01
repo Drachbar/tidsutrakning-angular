@@ -1,1 +1,9 @@
-<app-day *ngFor="let day of week.days" [day]="day" (dayUpdated)="updateWeek()"></app-day>
+<article>
+    <header>
+        <span>{{week.year}}</span>
+        <h2>Vecka {{week.weekNo}}</h2>
+    </header>
+    <section>
+        <app-day *ngFor="let day of week.days" [day]="day" (dayUpdated)="updateWeek()"></app-day>
+    </section>
+</article>

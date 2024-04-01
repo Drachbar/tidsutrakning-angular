@@ -15,13 +15,20 @@ export class TimeRegistrationService {
   constructor(private weekService: WeekService) { }
 
   addWeek(weekNo: number, year: number) {
+    const currentData = this.weeks.value;
+    const weekExists = currentData.some(week => week.weekNo === weekNo && week.year === year);
+
+    if (weekExists) {
+      console.log(`Veckan ${weekNo} för år ${year} finns redan.`);
+      return;
+    }
+
     const dateRange = this.weekService.getWeekDays(year, weekNo);
     let days: Day[] = [];
     days.push(...dateRange.map(date => new Day(date)));
 
-    const currentData = this.weeks.value;
-    const myWeek = new Week(weekNo, year, days)
-    const updatedData = [...currentData, myWeek];
+    const myWeek = new Week(weekNo, year, days);
+    const updatedData = [myWeek, ...currentData];
     this.weeks.next(updatedData);
   }
 

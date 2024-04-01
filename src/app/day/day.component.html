@@ -1,4 +1,5 @@
-<p>{{day.date.toLocaleDateString()}}</p>
+<h3>{{getWeekDay(day.date.getUTCDay())}}</h3>
+<div>{{day.date.getDate()}} / {{day.date.getMonth() + 1}}</div>
 <input type="time" [(ngModel)]="day.dayStart" (ngModelChange)="updateDay()">
 <input type="time" [(ngModel)]="day.lunchStart" (ngModelChange)="updateDay()">
 <input type="time" [(ngModel)]="day.lunchEnd" (ngModelChange)="updateDay()">
