@@ -7,13 +7,15 @@ import { AddWeekComponent } from './add-week/add-week.component';
 import { FormsModule } from '@angular/forms';
 import { WeekComponent } from './week/week.component';
 import { DayComponent } from './day/day.component';
+import { WeeksComponent } from './weeks/weeks.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddWeekComponent,
     WeekComponent,
-    DayComponent
+    DayComponent,
+    WeeksComponent
   ],
   imports: [
     BrowserModule,
