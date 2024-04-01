@@ -1,5 +1,6 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { WeekService } from '../week.service';
+import { TimeRegistrationService } from '../time-registration.service';
 
 @Component({
   selector: 'app-add-week',
@@ -12,7 +13,7 @@ export class AddWeekComponent implements OnInit {
   week!: number;
   weekInterval!: string;
   
-  constructor(private weekService: WeekService) {
+  constructor(private weekService: WeekService, private timeRegistrationService: TimeRegistrationService) {
   }
 
   ngOnInit(): void {
@@ -22,6 +23,7 @@ export class AddWeekComponent implements OnInit {
   }
 
   addWeek() {
+    this.timeRegistrationService.addWeek(this.week, this.year);
     this.week++;
     this.onInputChange();
   }

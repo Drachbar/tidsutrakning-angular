@@ -5,11 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddWeekComponent } from './add-week/add-week.component';
 import { FormsModule } from '@angular/forms';
+import { WeekComponent } from './week/week.component';
+import { DayComponent } from './day/day.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddWeekComponent
+    AddWeekComponent,
+    WeekComponent,
+    DayComponent
   ],
   imports: [
     BrowserModule,

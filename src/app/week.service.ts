@@ -17,7 +17,7 @@ export class WeekService {
     currentDate.setDate(currentDate.getDate() + 3 - (currentDate.getDay() + 6) % 7);
     const yearStart = new Date(currentDate.getFullYear(), 0, 1);
     const diff = currentDate.getTime() - yearStart.getTime();
-    const weekNo = Math.ceil((diff / (86400000 * 7)) + 1);
+    const weekNo = Math.ceil((diff / (86400000 * 7)));
     return weekNo;
   }
 
