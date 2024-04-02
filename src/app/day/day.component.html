@@ -4,3 +4,4 @@
 <input type="time" [(ngModel)]="day.lunchStart" (ngModelChange)="updateDay()">
 <input type="time" [(ngModel)]="day.lunchEnd" (ngModelChange)="updateDay()">
 <input type="time" [(ngModel)]="day.dayEnd" (ngModelChange)="updateDay()">
+<div *ngIf="sum">{{sum.hours}}H {{sum.minutes}}m</div>
