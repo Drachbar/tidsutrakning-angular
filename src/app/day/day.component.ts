@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Day } from '../model/day';
-import { Time } from '@angular/common';
-import { WeekService } from '../week.service';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Day} from '../model/day';
+import {Time} from '@angular/common';
+import {WeekService} from '../week.service';
 
 @Component({
   selector: 'app-day',
@@ -9,42 +9,47 @@ import { WeekService } from '../week.service';
   styleUrls: ['./day.component.scss']
 })
 export class DayComponent {
-  @Input({ required: true }) day!: Day;
+  @Input({required: true}) day!: Day;
   @Output() dayUpdated = new EventEmitter<Day>();
-  
-  sum?: Time 
 
-  constructor(private weekService: WeekService) { }
+  dayStart?: string;
+  lunchStart?: string;
+  lunchEnd?: string;
+  dayEnd?: string;
 
-  updateDay() {
-    this.dayUpdated.emit(this.day)
+  constructor(private weekService: WeekService) {
+  }
 
-    if (this.day.dayStart && this.day.lunchStart && this.day.lunchEnd && this.day.dayEnd) {
-      this.sum = this.calculateWorkedTime(this.day.dayStart, this.day.lunchStart, this.day.lunchEnd, this.day.dayEnd)
-      console.log(this.day.dayStart.hours)
-
-      console.log(this.sum)
+  updateDay(time: string | undefined, index: number) {
+    if (time == undefined) {
+      return;
     }
+
+    if (index === 0) {
+      this.day.dayStart = this.convertToTime(time)
+    }
+    if (index === 1) {
+      this.day.lunchStart = this.convertToTime(time)
+    }
+    if (index === 2) {
+      this.day.lunchEnd = this.convertToTime(time)
+    }
+    if (index === 3) {
+      this.day.dayEnd = this.convertToTime(time)
+    }
+
+    this.day.calculateWorkedTime();
+    this.dayUpdated.emit(this.day)
+  }
+
+  convertToTime(timeString: string): Time {
+    const parts = timeString.split(":");
+    const hours = parseInt(parts[0], 10);
+    const minutes = parseInt(parts[1], 10);
+    return {hours: hours, minutes: minutes};
   }
 
   getWeekDay(num: number) {
     return this.weekService.getWeekDay(num);
-  }
-
-  timeToMinutes(time: Time): number {
-    return time.hours * 60 + time.minutes;
-  }
-
-  calculateWorkedTime(dayStart: Time, lunchStart: Time, lunchEnd: Time, dayEnd: Time) {
-    const start = this.timeToMinutes(dayStart);
-    const lunchStartMinutes = this.timeToMinutes(lunchStart);
-    const lunchEndMinutes = this.timeToMinutes(lunchEnd);
-    const end = this.timeToMinutes(dayEnd);
-
-    const workedMinutes = (end - lunchEndMinutes) + (lunchStartMinutes - start);
-    const workedHours = Math.floor(workedMinutes / 60);
-    const workedMinutesRest = workedMinutes % 60;
-
-    return { hours: workedHours, minutes: workedMinutesRest };
   }
 }
