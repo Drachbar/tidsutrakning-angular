@@ -10,8 +10,7 @@ import {Time} from "@angular/common";
 export class WeekComponent {
   @Input({ required: true }) week!: Week;
   @Output() weekUpdated = new EventEmitter<Week>();
-
-  flex?: Time;
+  @Output() weekRemoved = new EventEmitter<Week>();
 
   updateWeek() {
     this.week.calculateWeekTime();
@@ -36,5 +35,9 @@ export class WeekComponent {
     const normalTid = 40 * 60;
     const flexMinuter = this.timeToMinutes(weekSum) - normalTid
     return this.minutesToTime(flexMinuter);
+  }
+
+  removeWeek() {
+    this.weekRemoved.emit(this.week);
   }
 }

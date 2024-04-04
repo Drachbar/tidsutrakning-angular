@@ -3,6 +3,7 @@
         <span>{{week.year}}</span>
         <h2>Vecka {{week.weekNo}}</h2>
     </header>
+  <button class="button-17" (click)="removeWeek()">Ta bort vecka</button>
     <section>
         <app-day *ngFor="let day of week.days" [day]="day" (dayUpdated)="updateWeek()"></app-day>
     </section>

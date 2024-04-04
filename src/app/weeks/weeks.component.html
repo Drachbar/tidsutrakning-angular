@@ -1,1 +1,1 @@
-<app-week *ngFor="let week of weeks$ | async" [week]="week" (weekUpdated)="updateWeek($event)"></app-week>
+<app-week *ngFor="let week of weeks$ | async" [week]="week" (weekUpdated)="updateWeek($event)" (weekRemoved)="removeWeek($event)"></app-week>

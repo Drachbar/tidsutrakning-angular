@@ -22,4 +22,8 @@ export class WeeksComponent implements OnInit {
   updateWeek(week: Week) {
     this.timeRegistrationService.updateWeek(week);
   }
+
+  removeWeek(week: Week) {
+    this.timeRegistrationService.removeWeek(week);
+  }
 }

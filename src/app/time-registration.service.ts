@@ -11,7 +11,7 @@ export class TimeRegistrationService {
 
   private weeks = new BehaviorSubject<Week[]>([]);
   data$ = this.weeks.asObservable();
-  
+
   constructor(private weekService: WeekService) { }
 
   addWeek(weekNo: number, year: number) {
@@ -38,5 +38,9 @@ export class TimeRegistrationService {
       week.weekNo === updatedWeek.weekNo && week.year === updatedWeek.year ? updatedWeek : week
     );
     this.weeks.next(updatedData);
+  }
+
+  removeWeek(weekToRemove: Week) {
+    this.weeks.next(this.weeks.value.filter(week => week !== weekToRemove));
   }
 }
