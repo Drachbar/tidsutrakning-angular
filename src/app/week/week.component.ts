@@ -1,6 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Week} from '../model/week';
 import {Time} from "@angular/common";
+import {TimeRegistrationService} from "../time-registration.service";
 
 @Component({
   selector: 'app-week',
@@ -9,12 +10,13 @@ import {Time} from "@angular/common";
 })
 export class WeekComponent {
   @Input({ required: true }) week!: Week;
-  @Output() weekUpdated = new EventEmitter<Week>();
-  @Output() weekRemoved = new EventEmitter<Week>();
+
+  constructor(private timeRegistrationService: TimeRegistrationService) {
+  }
 
   updateWeek() {
     this.week.calculateWeekTime();
-    this.weekUpdated.emit(this.week);
+    this.timeRegistrationService.updateWeek(this.week)
   }
 
   timeToMinutes(time: Time): number {
@@ -38,6 +40,6 @@ export class WeekComponent {
   }
 
   removeWeek() {
-    this.weekRemoved.emit(this.week);
+    this.timeRegistrationService.removeWeek(this.week)
   }
 }
