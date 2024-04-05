@@ -1,8 +1,12 @@
 article {
     margin: 1rem;
     padding: 1rem;
-    border: 3px solid rgb(18, 27, 27);
+    border: 3px solid #ff6b6b;
     border-radius: 1rem;
+}
+
+.saved {
+  border-color: rgb(18, 27, 27);
 }
 
 h2 {

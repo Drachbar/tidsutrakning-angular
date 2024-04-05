@@ -1,12 +1,12 @@
-<article>
+<article [class.saved]="saved">
     <header>
-        <span>{{week.year}}</span>
-        <h2>Vecka {{week.weekNo}}</h2>
+        <span>{{componentWeek.year}}</span>
+        <h2>Vecka {{componentWeek.weekNo}}</h2>
     </header>
   <button class="button-17" (click)="removeWeek()">Ta bort vecka</button>
     <section>
-        <app-day *ngFor="let day of week.days" [day]="day" (dayUpdated)="updateWeek()"></app-day>
+        <app-day *ngFor="let day of componentWeek.days" [inputDay]="day" (dayUpdated)="updateWeek()"></app-day>
     </section>
-    <div *ngIf="week.sum">Summa: {{week.sum.hours}}h {{week.sum.minutes}}m</div>
+    <div *ngIf="tempWeek.sum">Summa: {{tempWeek.sum.hours}}h {{tempWeek.sum.minutes}}m</div>
     <div *ngIf="calculateFlex() as flextid">Flex: {{flextid.hours}}h {{flextid.minutes}}m</div>
 </article>

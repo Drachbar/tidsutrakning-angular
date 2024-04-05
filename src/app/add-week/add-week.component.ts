@@ -1,6 +1,10 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { WeekService } from '../week.service';
-import { TimeRegistrationService } from '../time-registration.service';
+import {Component, OnInit} from '@angular/core';
+import {WeekService} from '../week.service';
+import {select, Store} from "@ngrx/store";
+import {addWeek} from "../store/weeks/week.actions";
+import {Day} from "../model/day";
+import {selectFirstWeek} from "../store/weeks/week.selectors";
+import {AppState} from "../store/app.state";
 
 @Component({
   selector: 'app-add-week',
@@ -12,19 +16,29 @@ export class AddWeekComponent implements OnInit {
   year!: number;
   week!: number;
   weekInterval!: string;
-  
-  constructor(private weekService: WeekService, private timeRegistrationService: TimeRegistrationService) {
+
+  constructor(private weekService: WeekService, private store: Store<AppState>) {
   }
 
   ngOnInit(): void {
     this.year = this.weekService.getCurrentYear();
-    this.week = this.weekService.getWeekNumber(new Date());
+    this.store.pipe(select(selectFirstWeek)).subscribe(week => week ?
+      this.week = week.weekNo + 1 : this.week = this.weekService.getWeekNumber(new Date()));
+
     this.onInputChange();
   }
 
   addWeek() {
-    this.timeRegistrationService.addWeek(this.week, this.year);
-    this.week++;
+    const dates = this.weekService.getWeekDays(this.year, this.week);
+    const days: Day[] = [];
+    days.push(...dates.map(myDate => {
+      return {date: myDate}
+    }));
+
+    const year = this.year;
+    const weekNo = this.week;
+
+    this.store.dispatch(addWeek({year, weekNo, days}))
     this.onInputChange();
   }
 
