@@ -1,1 +1,2 @@
-<app-week *ngFor="let week of weeks$ | async" [week]="week"></app-week>
+<button class="button-17" (click)="save()">Spara</button>
+<app-week *ngFor="let week of storeWeeks$ | async" [inputWeek]="week"></app-week>

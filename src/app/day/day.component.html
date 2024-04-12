@@ -1,8 +1,8 @@
-<h3>{{getWeekDay(day.date.getUTCDay())}}</h3>
-<div>{{day.date.getDate()}} / {{day.date.getMonth() + 1}}</div>
-<input type="time" [(ngModel)]="dayStart" (ngModelChange)="updateDay(dayStart, 0)">
-<input type="time" [(ngModel)]="lunchStart" (ngModelChange)="updateDay(lunchStart, 1)">
-<input type="time" [(ngModel)]="lunchEnd" (ngModelChange)="updateDay(lunchEnd, 2)">
-<input type="time" [(ngModel)]="dayEnd" (ngModelChange)="updateDay(dayEnd, 3)">
-<div *ngIf="day.sum">{{day.sum.hours}}h {{day.sum.minutes}}m</div>
-<div *ngIf="day.sum">{{day.sum.hours + (day.sum.minutes / 60) | number: '1.0-2'}}</div>
+<h3>{{getWeekDay(componentDay.date.getUTCDay())}}</h3>
+<div>{{componentDay.date.getDate()}} / {{componentDay.date.getMonth() + 1}}</div>
+<input type="time" [(ngModel)]="dayStart" (ngModelChange)="updateDay()">
+<input type="time" [(ngModel)]="lunchStart" (ngModelChange)="updateDay()">
+<input type="time" [(ngModel)]="lunchEnd" (ngModelChange)="updateDay()">
+<input type="time" [(ngModel)]="dayEnd" (ngModelChange)="updateDay()">
+<div *ngIf="componentDay.sum">{{componentDay.sum.hours}}h {{componentDay.sum.minutes}}m</div>
+<div *ngIf="componentDay.sum">{{componentDay.sum.hours + (componentDay.sum.minutes / 60) | number: '1.0-2'}}</div>
