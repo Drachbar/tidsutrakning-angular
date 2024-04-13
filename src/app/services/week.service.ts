@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +17,7 @@ export class WeekService {
     currentDate.setDate(currentDate.getDate() + 3 - (currentDate.getDay() + 6) % 7);
     const yearStart = new Date(currentDate.getFullYear(), 0, 1);
     const diff = currentDate.getTime() - yearStart.getTime();
-    const weekNo = Math.ceil((diff / (86400000 * 7)));
-    return weekNo;
+    return Math.ceil((diff / (86400000 * 7)));
   }
 
   getWeekDays(year: number, weekNumber: number): Date[] {

@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {WeekService} from '../week.service';
+import {WeekService} from '../../services/week.service';
 import {select, Store} from "@ngrx/store";
-import {addWeek} from "../store/weeks/week.actions";
-import {Day} from "../model/day";
-import {selectFirstWeek} from "../store/weeks/week.selectors";
-import {AppState} from "../store/app.state";
+import {addWeek} from "../../store/weeks/week.actions";
+import {Day} from "../../model/day";
+import {selectFirstWeek} from "../../store/weeks/week.selectors";
+import {AppState} from "../../store/app.state";
 
 @Component({
   selector: 'app-add-week',

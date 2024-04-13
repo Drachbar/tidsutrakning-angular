@@ -1,11 +1,11 @@
 import {Component, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {Observable} from 'rxjs';
-import {Week} from '../model/week';
+import {Week} from '../../model/week';
 import {select, Store} from "@ngrx/store";
-import {selectAllWeeks} from "../store/weeks/week.selectors";
-import {AppState} from "../store/app.state";
+import {selectAllWeeks} from "../../store/weeks/week.selectors";
+import {AppState} from "../../store/app.state";
 import {WeekComponent} from "../week/week.component";
-import {loadWeeks, saveWeeks} from "../store/weeks/week.actions";
+import {loadWeeks, saveWeeks} from "../../store/weeks/week.actions";
 
 @Component({
   selector: 'app-weeks',

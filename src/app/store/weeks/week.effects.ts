@@ -22,6 +22,7 @@ export class WeekEffects {
       }
     })
   ));
+
   saveWeek$ = createEffect(() => this.actions$.pipe(
       ofType(addWeek, removeWeek, saveWeeks),
       withLatestFrom(this.store.select(selectAllWeeks)),

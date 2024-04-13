@@ -1,0 +1,9 @@
+<h3 [class.holiday]="holiday.isHoliday" [class.weekend]="isWeekend" [class.hogtidsdag]="holiday.holiday && !holiday.isHoliday"
+    [title]="holiday.holiday ? holiday.holiday : dayName">{{dayName}}</h3>
+<div>{{ componentDay.date.getDate() }} / {{ componentDay.date.getMonth() + 1 }}</div>
+<input type="time" [(ngModel)]="dayStart" (ngModelChange)="updateDay()">
+<input type="time" [(ngModel)]="lunchStart" (ngModelChange)="updateDay()">
+<input type="time" [(ngModel)]="lunchEnd" (ngModelChange)="updateDay()">
+<input type="time" [(ngModel)]="dayEnd" (ngModelChange)="updateDay()">
+<div *ngIf="sum">{{ sum.hours }}h {{ sum.minutes }}m</div>
+<div *ngIf="sum">{{ sum.hours + (sum.minutes / 60) | number: '1.0-2' }}</div>

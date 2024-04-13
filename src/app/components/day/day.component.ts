@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Day} from '../model/day';
+import {Day} from '../../model/day';
 import {Time} from '@angular/common';
-import {WeekService} from '../week.service';
+import {WeekService} from '../../services/week.service';
+import {SwedishHolidaysService} from "../../services/swedish-holidays.service";
 
 @Component({
   selector: 'app-day',
@@ -13,20 +14,28 @@ export class DayComponent implements OnInit {
   @Output() dayUpdated = new EventEmitter<Day>();
 
   componentDay!: Day;
+  dayName!: string;
   dayStart?: string;
   lunchStart?: string;
   lunchEnd?: string;
   dayEnd?: string;
+  sum?: Time;
+  isWeekend!: boolean;
+  holiday!: {isHoliday: boolean, holiday: string | undefined}
 
-  constructor(private weekService: WeekService) {
+  constructor(private weekService: WeekService, private swedishHolidayService: SwedishHolidaysService) {
   }
 
   ngOnInit(): void {
     this.componentDay = {...this.inputDay}
+    this.dayName = this.getWeekDay(this.componentDay.date)
     this.dayStart = this.timeToString(this.componentDay.dayStart);
     this.lunchStart = this.timeToString(this.componentDay.lunchStart);
     this.lunchEnd = this.timeToString(this.componentDay.lunchEnd);
     this.dayEnd = this.timeToString(this.componentDay.dayEnd);
+    this.holiday = this.swedishHolidayService.isHoliday(this.componentDay.date);
+    this.isWeekend = this.componentDay.date.getUTCDay() >= 5;
+    this.updateDay();
   }
 
   updateDay() {
@@ -35,7 +44,7 @@ export class DayComponent implements OnInit {
     this.componentDay.lunchEnd = this.convertToTime(this.lunchEnd)
     this.componentDay.dayEnd = this.convertToTime(this.dayEnd)
 
-    this.componentDay.sum = this.calculateWorkedTime();
+    this.sum = this.calculateWorkedTime();
     this.dayUpdated.emit(this.componentDay)
   }
 
@@ -54,8 +63,8 @@ export class DayComponent implements OnInit {
     return `${hoursStr}:${minutesStr}`;
   }
 
-  getWeekDay(num: number) {
-    return this.weekService.getWeekDay(num);
+  getWeekDay(date: Date) {
+    return this.weekService.getWeekDay(date.getUTCDay());
   }
 
   calculateWorkedTime(): Time | undefined {

@@ -6,5 +6,4 @@ export interface Day {
   lunchStart?: Time;
   lunchEnd?: Time;
   dayEnd?: Time;
-  sum?: Time;
 }
