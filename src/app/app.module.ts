@@ -1,34 +1,34 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AddWeekComponent } from './components/add-week/add-week.component';
-import { FormsModule } from '@angular/forms';
-import { WeekComponent } from './components/week/week.component';
-import { DayComponent } from './components/day/day.component';
-import { WeeksComponent } from './components/weeks/weeks.component';
-import { StoreModule } from '@ngrx/store';
-import { weekReducer } from "./store/weeks/week.reducer";
-import { EffectsModule } from '@ngrx/effects';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {FormsModule} from '@angular/forms';
+import {StoreModule} from '@ngrx/store';
+import {weekReducer} from "./store/weeks/week.reducer";
+import {EffectsModule} from '@ngrx/effects';
 import {WeekEffects} from "./store/weeks/week.effects";
+import {SettingsComponent} from "./components/settings/settings.component";
+import {DaysOffEffects} from "./store/days-off/days-off.effects";
+import {daysOffReducer} from "./store/days-off/days-off.reducer";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AddWeekComponent,
-    WeekComponent,
-    DayComponent,
-    WeeksComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    StoreModule.forRoot({weeks: weekReducer}),
-    EffectsModule.forRoot([WeekEffects])
+    StoreModule.forRoot({
+      weeks: weekReducer,
+      daysOff: daysOffReducer
+    }),
+    EffectsModule.forRoot([WeekEffects, DaysOffEffects]),
+    SettingsComponent,
   ],
   providers: [],
+  exports: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

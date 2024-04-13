@@ -1,9 +1,20 @@
 import {Injectable} from '@angular/core';
+import {AppState} from "../store/app.state";
+import {Store} from "@ngrx/store";
+import {loadDaysOff} from "../store/days-off/days-off.action";
+import {selectDaysOff} from "../store/days-off/days-off.selectors";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SwedishHolidaysService {
+
+  daysOff?: Map<string, Boolean>;
+
+  constructor(private store: Store<AppState>) {
+    this.store.dispatch(loadDaysOff());
+    this.store.select(selectDaysOff).subscribe(daysOff => this.daysOff = daysOff);
+  }
 
   static readonly FIXED_HOLIDAYS = new Map<string, string>([
     ['1-1', 'Nyårsdagen'],
@@ -16,28 +27,6 @@ export class SwedishHolidaysService {
     ['12-31', 'Nyårsafton'],
   ]);
 
-  daysOff = new Map([
-    ['Nyårsdagen', true],
-    ['Trettondedag jul', true],
-    ['Skärtorsdag', false],
-    ['Långfredagen', true],
-    ['Påskafton', true],
-    ['Påskdagen', true],
-    ['Annandag påsk', true],
-    ['Första maj', true],
-    ['Kristi Himmelsfärdsdag', true],
-    ['Pingstdagen', false],
-    ['Annandag pingst', false],
-    ['Sveriges nationaldag', true],
-    ['Midsommarafton', true],
-    ['Midsommardagen', true],
-    ['Alla helgons dag', true],
-    ['Julafton', true],
-    ['Juldagen', true],
-    ['Annandag jul', true],
-    ['Nyårsafton', true],
-  ])
-
   private holidayCache = new Map<number, Map<number, string>>();
 
   public isHoliday(date: Date): {isHoliday: boolean, holiday: string | undefined} {
@@ -48,8 +37,9 @@ export class SwedishHolidaysService {
     const holidays = this.getAllHolidays(year);
     let isHoliday = holidays.has(cleanDate.getTime())
     const holiday = holidays.get(cleanDate.getTime());
-    if (!this.daysOff.get(holiday!)) {
-      isHoliday = false;
+
+    if (!this.daysOff || !this.daysOff.get(holiday!)) {
+      isHoliday = false
     }
     return {isHoliday, holiday};
   }

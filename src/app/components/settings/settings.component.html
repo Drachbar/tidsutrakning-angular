@@ -1,0 +1,11 @@
+<div><a routerLink="/">Tillbaka</a></div>
+
+<ul>
+  <li *ngFor="let day of daysOff | keyvalue : returnZero">
+    <span class="day-label">{{ day.key }}</span>
+    <label class="switch">
+      <input type="checkbox" [id]="day.key" [checked]="day.value" (change)="onToggle(day.key, $event)">
+      <span class="slider round"></span>
+    </label>
+  </li>
+</ul>
