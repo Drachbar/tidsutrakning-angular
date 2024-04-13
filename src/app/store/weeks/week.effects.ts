@@ -1,8 +1,11 @@
 import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {loadWeeks, loadWeeksFailure, loadWeeksSuccess, saveWeeks} from "./week.actions";
-import {of, switchMap, tap} from "rxjs";
+import {addWeek, loadWeeks, loadWeeksFailure, loadWeeksSuccess, removeWeek, saveWeeks} from "./week.actions";
+import {of, switchMap, tap, withLatestFrom} from "rxjs";
 import {Week} from "../../model/week";
+import {selectAllWeeks} from "./week.selectors";
+import {AppState} from "../app.state";
+import {Store} from "@ngrx/store";
 
 @Injectable()
 export class WeekEffects {
@@ -13,15 +16,16 @@ export class WeekEffects {
         const weeksData = localStorage.getItem('weeks');
         const weeksJson: Week[] = weeksData ? JSON.parse(weeksData) : [];
         weeksJson.forEach(week => week.days.forEach(day => day.date = new Date(day.date)))
-        return of(loadWeeksSuccess({ weeks: weeksJson }));
+        return of(loadWeeksSuccess({weeks: weeksJson}));
       } catch (error) {
-        return of(loadWeeksFailure({ error: 'Failed to load weeks from storage' }));
+        return of(loadWeeksFailure({error: 'Failed to load weeks from storage'}));
       }
     })
   ));
   saveWeek$ = createEffect(() => this.actions$.pipe(
-      ofType(saveWeeks),
-      tap(({weeks}) => {
+      ofType(addWeek, removeWeek, saveWeeks),
+      withLatestFrom(this.store.select(selectAllWeeks)),
+      tap(([, weeks]) => {
         localStorage.setItem('weeks', JSON.stringify(weeks));
       })
     ),
@@ -30,6 +34,7 @@ export class WeekEffects {
 
   constructor(
     private actions$: Actions,
+    private store: Store<AppState>
   ) {
   }
 }
