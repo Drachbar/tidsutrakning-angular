@@ -8,8 +8,6 @@ import {DayComponent} from "../day/day.component";
 import {FormsModule} from "@angular/forms";
 import {RouterLink, RouterOutlet} from "@angular/router";
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
