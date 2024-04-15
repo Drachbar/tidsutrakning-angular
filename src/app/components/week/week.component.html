@@ -8,5 +8,5 @@
         <app-day *ngFor="let day of componentWeek.days" [inputDay]="day" (dayUpdated)="updateWeek()"></app-day>
     </section>
     <div *ngIf="sum">Summa: {{sum.hours}}h {{sum.minutes}}m</div>
-    <div *ngIf="calculateFlex() as flextid">Flex: {{flextid.hours}}h {{flextid.minutes}}m</div>
+    <div>Flex: {{calculateFlex()}}</div>
 </article>

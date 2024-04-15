@@ -14,7 +14,6 @@ export class WeekComponent implements OnInit, AfterViewInit {
   @ViewChildren(DayComponent) dayComponents?: QueryList<DayComponent>;
   @Input({required: true}) inputWeek!: Week;
 
-  flex?: Time;
   componentWeek!: Week;
   tempWeek!: Week;
   sum?: Time;
@@ -50,8 +49,10 @@ export class WeekComponent implements OnInit, AfterViewInit {
     if (this.sum === undefined || this.normalTid === undefined) {
       return;
     }
-    const flexMinuter = this.timeToMinutes(this.sum) - (this.normalTid * 60)
-    return this.minutesToTime(flexMinuter);
+    const sumMinutes = this.sum.hours * 60 + this.sum.minutes;
+    const differens = (this.normalTid * 60) - sumMinutes;
+
+    return - (differens / 60);
   }
 
   private getNormaltid() {
@@ -82,7 +83,6 @@ export class WeekComponent implements OnInit, AfterViewInit {
       }
       return acc;
     }, {hours: 0, minutes: 0});
-    this.flex = this.calculateFlex();
     this.saved = JSON.stringify(this.inputWeek) === JSON.stringify(this.tempWeek);
   }
 }
